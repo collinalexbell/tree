@@ -11,7 +11,12 @@ const unsigned int SCR_HEIGHT = 600;
 //}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 
+
+
+
 // + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + -
+
+
 
 
 //------------------callbacks----------------------------------------------
@@ -31,7 +36,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 //}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 
+
+
 // + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + -
+
+
 
 
 //-------------------shaders-----------------------------------------------
@@ -51,13 +60,23 @@ const char *fragmentShaderSource = "#version 330 core\n"
 //}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 
+
+
+
+
 // + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + -
+
+
+
+
 
 
 //-------------------opengl------------------------------------------------
 //{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 class OpenGl {
   GLFWwindow* window;
+  unsigned int vertexShader;
+  unsigned int fragmentShader;
   public:
   void initialize_and_configure() {
     glfwInit();
@@ -94,9 +113,64 @@ class OpenGl {
       return -1;
     }
   }
-};
 
+  void init_vertex_shader() {
+    // vertex shader
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+    // check for shader compile errors
+    int success;
+    char infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+  }
+
+  void init_fragment_shader() {
+    // fragment shader
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
+    // check for shader compile errors
+    int success;
+    char infoLog[512];
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+  }
+
+  void loop() {
+    while (!glfwWindowShouldClose(window)) {
+      // input
+      // -----
+      processInput(window);
+
+      // render
+      // ------
+      glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT);
+
+
+      // add VAO triangle render HERE
+
+      //           ++++++++++
+
+      glfwSwapBuffers(window);
+      glfwPollEvents();
+    }
+  }
+};
 //}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+
+
 
 
 // + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + -
@@ -116,4 +190,7 @@ void init_3d() {
   if(status == -1) {
     printf("unable to init glad");
   }
+  gl.init_vertex_shader();
+  gl.init_fragment_shader();
+  gl.loop();
 }
