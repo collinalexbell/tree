@@ -84,12 +84,24 @@ class OpenGl {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     return 0;
   }
+
+  int init_glad() {
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+      std::cout << "Failed to initialize GLAD" << std::endl;
+      return -1;
+    }
+  }
 };
 
 //}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 
 // + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + - + -
+
+
 
 
 void init_3d() {
@@ -99,5 +111,9 @@ void init_3d() {
   status = gl.create_window();
   if(status == -1) {
     printf("unable to create window");
+  }
+  status = gl.init_glad();
+  if(status == -1) {
+    printf("unable to init glad");
   }
 }
