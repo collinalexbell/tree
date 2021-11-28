@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "3d.h"
 
 using namespace std;
 
@@ -26,4 +27,5 @@ string get_tree_ascii() {
 int main() {
   cout << get_tree_ascii();
   cout << endl << endl << "Welcome to Treelon" << endl;
+  init_3d();
 }
