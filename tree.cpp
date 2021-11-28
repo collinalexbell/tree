@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class Choice
 {
   //+++++++++++++++++++++++
@@ -15,9 +17,9 @@ class Choice
 
   //-----------------------
 
-  const char* getName()
+  const string getName()
   {
-    return name.c_str();
+    return name;
   }
   //-----------------------
 
@@ -43,12 +45,17 @@ int enter_a_number() {
 Choice main_menu()
 {
   std::vector<Choice> choices;
-  choices.push_back(Choice("test all"));
-  choices.push_back(Choice("test one"));
+
+  auto treelon = Choice("treelon");
+  choices.push_back(treelon);
+
+  auto cyborg = Choice("cyborg");
+  choices.push_back(cyborg);
+
   int x = 0;
   for(auto it = choices.begin(); it != choices.end(); it++)
   {
-    printf("%d): %s\n", x, it->getName());
+    printf("%d): %s\n", x, it->getName().c_str());
     x++;
   }
   int choice = enter_a_number();
@@ -58,5 +65,11 @@ Choice main_menu()
 int main()
 {
   printf("welcome to tree\n");
-  printf("selected: %s\n", main_menu().getName());
+  Choice choice = main_menu();
+  if(choice.getName().compare(string("treelon")) == 0) {
+    system("./Treelon");
+  } else if (choice.getName().compare(string("cyborg")) == 0) {
+    system("./Cyborg");
+  } else {
+  }
 }
