@@ -6,13 +6,23 @@
 
 using namespace std;
 
-string left() {
+string face(string eye_direction) {
 
-  string rv =
+  string eye;
+  if(eye_direction == "left") {
+    eye = "     .'    '-.(o ) (o ).-'    `.      \n";
+  } else if (eye_direction == "right") {
+    eye = "     .'    '-.( o) ( o).-'    `.      \n";
+  } else if (eye_direction == "stare") {
+    eye = "     .'    '-.( o) (o ).-'    `.      \n";
+  }
+  string top =
 "              .'\\   /`.              \n"
 "            .'.-.`-'.-.`.             \n"
-"       ..._:   .-. .-.   :_...        \n"
-"     .'    '-.(o ) (o ).-'    `.      \n"
+"       ..._:   .-. .-.   :_...        \n";
+
+//"    .'    '-.(xx) (xx).-'    `.      \n"
+  string bottom = 
 "    :  _    _ _`~(_)~`_ _    _  :     \n"
 "   :  /:   ' .-=_   _=-. `   ;\\  :   \n"
 "   :   :|-.._  '     `  _..-|:   :    \n"
@@ -22,45 +32,24 @@ string left() {
 "    jgs  `-._   ````    _.-'          \n"
 "             ``-------''              \n";
 
-  return rv;
+  string footer = 
+" ------------------------------------ \n"
+"            Yin   ~   Tree.Cyborg     \n"
+" ------------------------------------ \n";
+
+  return top + eye + bottom + footer;
+}
+
+string left() {
+  return face("left");
 }
 
 string right() {
-
-  string rv =
-"              .'\\   /`.              \n"
-"            .'.-.`-'.-.`.             \n"
-"       ..._:   .-. .-.   :_...        \n"
-"     .'    '-.( o) ( o).-'    `.      \n"
-"    :  _    _ _`~(_)~`_ _    _  :     \n"
-"   :  /:   ' .-=_   _=-. `   ;\\  :   \n"
-"   :   :|-.._  '     `  _..-|:   :    \n"
-"    :   `:| |`:-:-.-:-:'| |:'   :     \n"
-"     `.   `.| | | | | | |.'   .'      \n"
-"       `.   `-:_| | |_:-'   .'        \n"
-"    jgs  `-._   ````    _.-'          \n"
-"             ``-------''              \n";
-
-  return rv;
+  return face("right");
 }
 
 string stare() {
-
-  string rv =
-"              .'\\   /`.              \n"
-"            .'.-.`-'.-.`.             \n"
-"       ..._:   .-. .-.   :_...        \n"
-"     .'    '-.( o) (o ).-'    `.      \n"
-"    :  _    _ _`~(_)~`_ _    _  :     \n"
-"   :  /:   ' .-=_   _=-. `   ;\\  :   \n"
-"   :   :|-.._  '     `  _..-|:   :    \n"
-"    :   `:| |`:-:-.-:-:'| |:'   :     \n"
-"     `.   `.| | | | | | |.'   .'      \n"
-"       `.   `-:_| | |_:-'   .'        \n"
-"    jgs  `-._   ````    _.-'          \n"
-"             ``-------''              \n";
-
-  return rv;
+  return face("stare");
 }
 
 void clear() {
