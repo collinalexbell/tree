@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "3d.h"
+#include <unistd.h>
 
 using namespace std;
 
@@ -24,8 +24,34 @@ string get_tree_ascii() {
   return tree;
 }
 
+class AsciiShell {
+  public:
+    AsciiShell() {}
+};
+
+class AsciiShellFactory {
+  AsciiShell root = AsciiShell();
+  bool first_fetch = true;
+  void onFirstFetchOfRoot() {
+    cout << get_tree_ascii();
+    cout << endl << endl << "Welcome to Treelon" << endl;
+  }
+  public:
+    AsciiShell makeShell() {
+      if(first_fetch){
+        onFirstFetchOfRoot();
+        first_fetch = false;
+      }
+      return root;
+    }
+};
+
 int main() {
-  cout << get_tree_ascii();
-  cout << endl << endl << "Welcome to Treelon" << endl;
-  init_3d();
+  cout << "main()" << endl;
+  unsigned int ms;
+  auto shellFactory = AsciiShellFactory();
+  usleep(1000000);
+  auto shell = shellFactory.makeShell();
+  usleep(1000000);
+  shell = shellFactory.makeShell();
 }

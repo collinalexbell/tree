@@ -97,3 +97,6 @@ int main(){
   stringstream ss(example_notation);
   TaskTree root = TaskTree::deserialize(ss); 
 }
+
+// 400 printers * 30 days * 1unit/24 hours
+// 12,000 printed units * 8.3333 profit = 100k$
