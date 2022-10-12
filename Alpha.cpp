@@ -7,7 +7,7 @@
 
 using namespace std;
 
-string example_notation = 
+string example_notation =
   "example\n"
   "- a\n"
   "- - b\n"
@@ -27,6 +27,10 @@ class TaskTree {
   int level;
   TaskTree *parent;
   string name;
+
+  string toString() {
+    return name;
+  }
 
   TaskTree(string _name, TaskTree *_parent, int _level) {
     name = _name;
@@ -96,6 +100,7 @@ class TaskTree {
 int main(){
   stringstream ss(example_notation);
   TaskTree root = TaskTree::deserialize(ss); 
+  std::cout << root.toString() << endl;
 }
 
 // 400 printers * 30 days * 1unit/24 hours

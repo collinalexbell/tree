@@ -1,5 +1,5 @@
-#include "Space_Cleaner.h";
+#include "Space_Cleaner.h"
 int main() {
   Space_Cleaner cleaner;
-  cleaner.sweep();
+  cleaner.run();
 }

@@ -1,5 +1,9 @@
 #include <cpr/cpr.h>
 
+void goTo(std::string arg) {
+  cpr::Get(cpr::Url{arg});
+}
+
 int main(int argc, char** argv) {
 
   auto r = cpr::Get(cpr::Url{"https://example.com"});
